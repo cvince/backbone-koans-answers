@@ -102,21 +102,21 @@ describe('About Backbone.Events', function() {
         obj.on('bar', spy1);
 
         // How do you unbind just a single callback for the event?
-
-        obj.trigger('foo');
+		
 		obj.off('foo', spy1);
+        obj.trigger('foo');
 
         expect(spy1).not.toHaveBeenCalled();
 
         // How do you unbind all callbacks tied to the event with a single method?
-
+		obj.off('foo');
         obj.trigger('foo');
 
         expect(spy2.callCount).toEqual(1);
         expect(spy3.callCount).toEqual(1);
 
         // How do you unbind all callbacks and events tied to the object with a single method?
-
+		obj.off();
         obj.trigger('bar');
 
         expect(spy1).not.toHaveBeenCalled();
