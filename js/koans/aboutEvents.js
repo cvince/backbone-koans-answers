@@ -10,6 +10,7 @@ describe('About Backbone.Events', function() {
     it('Any regular javascript object can be extended with custom event functionality.', function() {
         var basicObject = {};
 
+		_.extend(basicObject, Backbone.Events);
         // How would you get these Backbone.Events functions added to basicObject?
         // Hint: http://documentcloud.github.com/backbone/#Events
 
@@ -23,6 +24,8 @@ describe('About Backbone.Events', function() {
 
         obj.on('basic_event', callback);
 
+		obj.trigger('basic_event')
+		
         // How would you cause the callback for this custom event to be called?
 
         expect(callback).toHaveBeenCalled();
@@ -35,7 +38,7 @@ describe('About Backbone.Events', function() {
         obj.on('an_event another_event', callback);
 
         // How would you change the trigger call to trigger two events at the same time?
-        obj.trigger('an_event')
+        obj.trigger('an_event another_event')
 
         expect(callback.callCount).toBe(2);
     });
@@ -45,7 +48,7 @@ describe('About Backbone.Events', function() {
 
         obj.on('some_event', callback);
 
-        obj.trigger('some_event');
+        obj.trigger('some_event', 'arg1', 'arg2');
 
         expect(callback.mostRecentCall.args).toEqual(['arg1', 'arg2']);
     });
@@ -69,7 +72,7 @@ describe('About Backbone.Events', function() {
         // How would you get 'this.color' to refer to 'foo' in the changeColor function?
         // Hint: Notice anything different about the 'on' method below?
 
-        obj.on('an_event', changeColor, this);
+        obj.on('an_event', changeColor, foo);
 
         obj.trigger('an_event');
 
@@ -82,7 +85,8 @@ describe('About Backbone.Events', function() {
         obj.on('all', callback);
 
         // How are you going to call obj.trigger to get both expectations passing?
-
+		obj.trigger('custom_event');
+		
         expect(callback.callCount).toBe(1);
         expect(callback.mostRecentCall.args[0]).toBe('custom_event');
     });
@@ -100,6 +104,7 @@ describe('About Backbone.Events', function() {
         // How do you unbind just a single callback for the event?
 
         obj.trigger('foo');
+		obj.off('foo', spy1);
 
         expect(spy1).not.toHaveBeenCalled();
 
