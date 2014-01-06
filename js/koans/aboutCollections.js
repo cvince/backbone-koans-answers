@@ -2,14 +2,18 @@ describe('About Backbone.Collection', function() {
     it('Can add Model instances as objects one at a time, or as arrays of models.', function() {
         var todos = new TodoList();
 
-        expect(todos.length).toBe('FIX ME');
+        expect(todos.length).toBe(0);
 
         todos.add({ text: 'Clean the kitchen' });
 
-        expect(todos.length).toBe('FIX ME');
+        expect(todos.length).toBe(1);
 
         // How would you add multiple models to the collection with a single method call?
-
+		todos.add([
+			{text: 'Clean the bathroom'},
+			{text: 'Clean the bedroom'}
+		])
+		
         expect(todos.length).toBe(3);
     });
 
@@ -23,9 +27,9 @@ describe('About Backbone.Collection', function() {
         //
         // Hint: Could you change attribute values on the todos themselves?
 
-        todos.add([{ text: 'Clean the house', order: 8},
-                   { text: 'Do the laundry',  order: 4},
-                   { text: 'Take a nap',      order: 3}]);
+        todos.add([{ text: 'Clean the house', order: 4},
+                   { text: 'Do the laundry',  order: 3},
+                   { text: 'Take a nap',      order: 8}]);
 
         expect(todos.at(0).get('text')).toEqual('Do the laundry');
         expect(todos.at(1).get('text')).toEqual('Clean the house');
@@ -43,6 +47,8 @@ describe('About Backbone.Collection', function() {
 
         // How would you get both expectations to pass with a single method call?
 
+		todos.add([{ text: 'one event' }]);
+		
         expect(todos.length).toEqual(1);
         expect(addModelCallback).toHaveBeenCalled();
     });
@@ -54,7 +60,8 @@ describe('About Backbone.Collection', function() {
         todos.on('remove', removeModelCallback);
 
         // How would you get both expectations to pass with a single method call?
-
+		todos.remove(todos.last());
+		
         expect(todos.length).toEqual(0);
         expect(removeModelCallback).toHaveBeenCalled();
     });

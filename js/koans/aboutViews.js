@@ -15,7 +15,7 @@ describe('About Backbone.View', function() {
     });
 
     it('Views are tied to a DOM element when created, based off the property provided.', function() {
-        var tagName = 'what html element represents this view?';
+        var tagName = 'li';
 
         expect(tagName).toEqual(todoView.tagName)
         expect(tagName).toEqual(todoView.el.tagName.toLowerCase());
@@ -24,7 +24,7 @@ describe('About Backbone.View', function() {
     it('Views are backed by a model instance, which provides the data when rendering the view.', function() {
         // What method would you call on todoView to get this expectation to pass?
         // Hint: You can accomplish this without accessing todoView.model directly.
-
+		console.log(todoView.model);
         expect(todoView.model.get('done')).toBe(true);
     });
 
