@@ -68,7 +68,8 @@ describe('About Backbone.View', function() {
             //       (See todos.js line 70, where the events hash is defined.)
             //
             // Hint: http://api.jquery.com/click
-
+			todoView.on('click', function(){todoView.toggleDone();});
+			todoView.trigger('click');
             expect(todoView.model.toggle).toHaveBeenCalled();
         });
     });
