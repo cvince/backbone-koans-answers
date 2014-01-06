@@ -24,7 +24,9 @@ describe('About Backbone.View', function() {
     it('Views are backed by a model instance, which provides the data when rendering the view.', function() {
         // What method would you call on todoView to get this expectation to pass?
         // Hint: You can accomplish this without accessing todoView.model directly.
-		console.log(todoView.model);
+	
+		todoView.toggleDone();
+	
         expect(todoView.model.get('done')).toBe(true);
     });
 
@@ -37,6 +39,8 @@ describe('About Backbone.View', function() {
         //
         // Hint: http://documentcloud.github.com/backbone/#View-el and TodoApp.addOne in todos.js
 
+		$('ul#todoList').append(todoView.el);
+	
         expect($('#todoList').find('li').length).toBe(1);
     });
 
